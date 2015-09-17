@@ -20,6 +20,7 @@ import android.widget.ListView;
 
 public class LonelyTwitterActivity extends Activity {
 
+    //Static shares the variable-ish
 	private static final String FILENAME = "file.sav";
 	private EditText bodyText;
 	private ListView oldTweetsList;
@@ -27,6 +28,11 @@ public class LonelyTwitterActivity extends Activity {
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+
+        ArrayList<Tweet> tweetlist = new ArrayList<Tweet>();
+		Tweet importantTweet = new ImportantTweet("");
+        importantTweet.getText();
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
