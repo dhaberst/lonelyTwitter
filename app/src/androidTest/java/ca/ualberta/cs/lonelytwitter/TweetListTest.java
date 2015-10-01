@@ -76,6 +76,7 @@ public class TweetListTest extends ActivityInstrumentationTestCase2 {
         tweetList.add(tweet);
         Tweet tweet2 = new NormalTweet("HIHIHIHI2", new Date(100));
         tweetList.add(tweet2);
+        assertTrue(tweetList.getTweet(0).getDate().compareTo(tweetList.getTweet(1).getDate()) > 0);
     }
 
 
