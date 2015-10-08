@@ -2,6 +2,7 @@ package ca.ualberta.cs.lonelytwitter;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 
@@ -10,7 +11,9 @@ import java.util.Vector;
  * Created by dhaberst on 9/30/15.
  */
 
-public class TweetListTest extends ActivityInstrumentationTestCase2 {
+public class TweetListTest extends ActivityInstrumentationTestCase2 implements MyObserver {
+
+    private boolean wasNotified = false;
 
     public TweetListTest() {
         super(LonelyTwitterActivity.class);
@@ -79,5 +82,18 @@ public class TweetListTest extends ActivityInstrumentationTestCase2 {
         assertTrue(tweetList.getTweet(0).getDate().compareTo(tweetList.getTweet(1).getDate()) > 0);
     }
 
+
+    public void testTweetListChange() {
+        TweetList tweetList = new TweetList();
+        Tweet tweet = new NormalTweet("HIHIHIHI");
+        tweetList.addObserver(this);
+        assertFalse(wasNotified);
+        tweetList.add(tweet);
+        assertTrue(wasNotified);
+    }
+
+    public void myNotify() {
+        wasNotified = true;
+    }
 
 }
