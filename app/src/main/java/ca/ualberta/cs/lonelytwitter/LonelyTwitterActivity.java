@@ -12,8 +12,10 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,8 +27,27 @@ import com.google.gson.reflect.TypeToken;
 public class LonelyTwitterActivity extends Activity {
 
 	private static final String FILENAME = "file.sav"; // Model
+	private LonelyTwitterActivity activity = this;
 	private EditText bodyText; // Model
 	private ListView oldTweetsList; // Model
+	private Button saveButton;
+
+	public ListView getOldTweetsList() {
+		return oldTweetsList;
+	}
+
+	public Button getSaveButton() {
+		return saveButton;
+	}
+
+	public ArrayList<Tweet> getTweets() {
+		return tweets;
+	}
+
+	public EditText getBodyText() {
+		return bodyText;
+	}
+
 	private ArrayList<Tweet> tweets = new ArrayList<Tweet>(); // Model
 	private ArrayAdapter<Tweet> adapter; // Model
 
@@ -38,7 +59,7 @@ public class LonelyTwitterActivity extends Activity {
 		setContentView(R.layout.main); // Model
 
 		bodyText = (EditText) findViewById(R.id.body); // Model
-		Button saveButton = (Button) findViewById(R.id.save); // Model
+		saveButton = (Button) findViewById(R.id.save);
 		Button clearButton = (Button) findViewById(R.id.clear); // Model
 		oldTweetsList = (ListView) findViewById(R.id.oldTweetsList); // Model
 
@@ -59,6 +80,13 @@ public class LonelyTwitterActivity extends Activity {
 			public void onClick(View v) { // Controller
 				clear(); // Model
 				adapter.notifyDataSetChanged(); // View
+			}
+		});
+
+		oldTweetsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Intent intent = new Intent(activity, EditTweetActivity.class);
+				startActivity(intent);
 			}
 		});
 	}
